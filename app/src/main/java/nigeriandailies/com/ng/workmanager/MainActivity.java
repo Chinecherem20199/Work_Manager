@@ -2,6 +2,7 @@ package nigeriandailies.com.ng.workmanager;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
+import androidx.work.Constraints;
 import androidx.work.Data;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkInfo;
@@ -25,10 +26,14 @@ public class MainActivity extends AppCompatActivity {
         Data data = new Data.Builder()
                 .putString(KEY_TASK_DESC, "Hey I am sending the work data")
                 .build();
+        Constraints constraints = new Constraints.Builder()
+                .setRequiresCharging(true)
+                .build();
 
         //Initialize the oneTimeWorker method
        final OneTimeWorkRequest request = new OneTimeWorkRequest.Builder(MyWorker.class)
                .setInputData(data)
+               .setConstraints(constraints)
                .build();
 
         mButton = findViewById(R.id.button);
